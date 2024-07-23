@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Catégories</title>
+    <th:block th:replace="fragments/bootstrap :: head"></th:block>
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Liste des Catégories</h1>
+    <a href="/categories/add" class="btn btn-primary mb-4">Ajouter une Catégorie</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="categorie : ${categories}">
+            <td th:text="${categorie.nom}"></td>
+            <td th:text="${categorie.description}"></td>
+            <td>
+                <a th:href="@{/categories/edit/{id}(id=${categorie.id})}" class="btn btn-warning btn-sm">Modifier</a>
+                <a th:href="@{/categories/delete/{id}(id=${categorie.id})}" class="btn btn-danger btn-sm" th:onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/recettes" class="btn btn-secondary mt-3">Gérer les Recettes</a>
+    <a href="/" class="btn btn-secondary mt-3">Retour à l'Accueil</a>
+</div>
+</body>
+</html>

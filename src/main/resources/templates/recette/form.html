@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulaire Recette</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Formulaire Recette</h1>
+    <form th:action="@{/recettes/add}" th:object="${recette}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" class="form-control" th:field="*{nom}" />
+            <div class="text-danger" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="ingredients">Ingrédients (séparés par des virgules)</label>
+            <input type="text" id="ingredients" class="form-control" th:field="*{ingredients}" />
+            <div class="text-danger" th:if="${#fields.hasErrors('ingredients')}" th:errors="*{ingredients}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="instructions">Instructions</label>
+            <textarea id="instructions" class="form-control" th:field="*{instructions}" rows="4"></textarea>
+            <div class="text-danger" th:if="${#fields.hasErrors('instructions')}" th:errors="*{instructions}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="categorie">Catégorie</label>
+            <select id="categorie" class="form-control" th:field="*{categorie.id}">
+                <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.nom}"></option>
+            </select>
+            <div class="text-danger" th:if="${#fields.hasErrors('categorie')}" th:errors="*{categorie}"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Sauvegarder</button>
+    </form>
+    <a href="/recettes" class="btn btn-secondary mt-3">Retour à la Liste</a>
+</div>
+</body>
+</html>

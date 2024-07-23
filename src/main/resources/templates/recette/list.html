@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Recettes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Liste des Recettes</h1>
+    <a href="/recettes/add" class="btn btn-primary mb-3">Ajouter une Recette</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Ingrédients</th>
+            <th>Instructions</th>
+            <th>Catégorie</th> <!-- Add this line -->
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="recette : ${recettes}">
+            <td th:text="${recette.id}"></td>
+            <td th:text="${recette.nom}"></td>
+            <td th:text="${recette.ingredients}"></td>
+            <td th:text="${recette.instructions}"></td>
+            <td th:text="${recette.categorie.nom}"></td>
+            <td>
+                <a th:href="@{/recettes/edit/{id}(id=${recette.id})}" class="btn btn-warning btn-sm">Modifier</a>
+                <a th:href="@{/recettes/delete/{id}(id=${recette.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette recette ?');">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/" class="btn btn-secondary mt-3">Retour à l'Accueil</a>
+</div>
+</body>
+</html>
